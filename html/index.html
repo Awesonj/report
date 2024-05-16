@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+    <div class="report">
+        <div class="sidebar">
+            <h1>user sidebar</h1>
+        </div>  
+
+        <div class="container">
+            <h1>Daily Report</h1>
+              <span id="reportDate"></span> <!-- Display the date here -->
+                <textarea id="dailyReport" name="dailyReport"  placeholder="Type your Report here..." required></textarea>
+                <label for="location">Location:
+                    <textarea id="location" name="location"  placeholder="Type your Location here..." required></textarea>
+                </label>
+                <label for="comments">Comments:
+                    <textarea id="comments" name="comments" placeholder="Type your Comments here..." required></textarea>
+                </label>
+                <label for="remarks">Remarks:
+                    <textarea id="remarks" name="remarks"  placeholder="Type your Remarks here..."  required></textarea>
+                </label>
+                <div id="displayReport"></div> <!-- Container to display the report -->
+                <button type="button" id="submit">submit</button>
+                <table id="reportTable">
+                    
+                    <thead>
+                        <tr>
+                            <th colspan="4" id="reportDates">Report as at [Date]</th> <!-- Added table heading for report date -->
+                        </tr>
+                        <tr>
+                            <th>SN</th>
+                            <th>Location</th>
+                            <th>Comment</th>
+                            <th>Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportTableBody">
+                        <!-- Table rows will be dynamically added here -->
+                    </tbody>
+                </table>
+        </div>
+    </div>
+    <script src="../js/index.js"></script>
+</body>
+</html>

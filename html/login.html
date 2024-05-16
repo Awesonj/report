@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Include Font Awesome CSS for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Link to custom CSS file -->
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <section class="formClass">
+        <h1>Login</h1>
+        <div class="container">
+            <form id="loginForm">
+                <div class="input-container">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" placeholder="Username or Email" required>
+                </div>
+                <div class="input-container">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Password" required>
+                    <i class="fas fa-eye toggle-password" id="togglePassword"></i>
+                </div>
+                <div class="input-container">
+                    <i class="fas fa-building"></i>
+                    <select id="department" required>
+                        <option value="" disabled selected>Select Department</option>
+                        <option value="hr">Human Resources</option>
+                        <option value="store">General Services (Store)</option>
+                    </select>
+                </div>
+                <button type="submit">Login</button>
+                <p>Not registered yet? <a href="/html/registration.html" id="registerLink">Sign Up</a></p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Include Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js" type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js" type="module"></script>
+    <!-- Link to custom JavaScript file -->
+    <script src="/js/loginauth.js" type="module"></script>
+</body>
+</html>
