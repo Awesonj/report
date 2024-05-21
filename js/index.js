@@ -1,10 +1,9 @@
-// Import necessary Firebase modules at the top of the script
-
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js';
-import { getFirestore, collection, addDoc, getDocs } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js';
+import { getFirestore, doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js';
 
-// Initialize Firebase app and Firestore
-const firebaseConfig = {
+document.addEventListener('DOMContentLoaded', () => {
+    // Firebase configuration
+    const firebaseConfig = {
     apiKey: 'AIzaSyAWwVoSru9MDFsxgZvR9jCAPmha9dkwn7I',
     authDomain: 'inventory-tracker-251d9.firebaseapp.com',
     projectId: 'inventory-tracker-251d9',
@@ -12,56 +11,117 @@ const firebaseConfig = {
     messagingSenderId: '687688694025',
     appId: '1:687688694025:web:8687bfa31dc57a5177bbd8',
     measurementId: 'G-XLKM7VBSSD',
-};
+    };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-// Event listener for the submit button
-document.getElementById('submit').addEventListener('click', async function() {
-    // Get the values of daily report, location, comments, and remarks
-    const dailyReport = document.getElementById('dailyReport').value.trim();
-    const location = document.getElementById('location').value.trim();
-    const comments = document.getElementById('comments').value.trim();
-    const remarks = document.getElementById('remarks').value.trim();
+    let submitButton = document.getElementById('submit');
+    let saveButton = document.getElementById('save');
+    let reportTableBody = document.getElementById('reportTableBody');
+    let reportDateSpan = document.getElementById('reportDate');
+    let reportDatesHeading = document.getElementById('reportDates');
 
-    // Check if any of the text areas are empty
-    if (dailyReport === '' || location === '' || comments === '' || remarks === '') {
-        alert('Please fill in all fields before submitting the report.');
-        return;
+    // Set the current date in the report date span and heading
+    let currentDate = new Date().toLocaleDateString();
+    reportDateSpan.textContent = `Report Date: ${currentDate}`;
+    reportDatesHeading.textContent = `Report as at ${currentDate}`;
+
+    // Initialize serial number
+    let serialNumber = 1;
+
+    // Get all textarea elements
+    let textareas = document.querySelectorAll('textarea');
+
+    // Function to check if all textareas are filled
+    function checkTextareas() {
+        let allFilled = true;
+        textareas.forEach(textarea => {
+            if (textarea.value.trim() === '') {
+                allFilled = false;
+            }
+        });
+        submitButton.disabled = !allFilled;
     }
 
-    try {
-        // Add the report to Firestore
-        const docRef = await addDoc(collection(db, 'reports'), {
-            dailyReport,
-            location,
-            comments,
-            remarks,
-            timestamp: new Date().toISOString() // Add timestamp for sorting purposes
+    // Add event listeners to all textareas to check for input
+    textareas.forEach(textarea => {
+        textarea.addEventListener('input', checkTextareas);
+    });
+
+    // Function to add a new row to the table
+    function addReportRow() {
+        // Get the values from the text areas
+        let task = document.getElementById('task').value;
+        let location = document.getElementById('location').value;
+        let details = document.getElementById('details').value;
+        let challenges = document.getElementById('challenges').value;
+        let recommendations = document.getElementById('recommendations').value;
+        let remarks = document.getElementById('remarks').value;
+        let dateTime = new Date().toLocaleString();
+
+        // Create a new row
+        let newRow = document.createElement('tr');
+
+        // Create and append cells to the row
+        let cells = [serialNumber, task, location, details, challenges, recommendations, remarks, dateTime];
+        cells.forEach(cellContent => {
+            let cell = document.createElement('td');
+            cell.textContent = cellContent;
+            newRow.appendChild(cell);
         });
 
-        // Clear the form fields after submission
-        document.getElementById('dailyReport').value = '';
-        document.getElementById('location').value = '';
-        document.getElementById('comments').value = '';
-        document.getElementById('remarks').value = '';
+        // Append the new row to the table body
+        reportTableBody.appendChild(newRow);
 
-        // Retrieve all reports from Firestore and populate the table
-        const querySnapshot = await getDocs(collection(db, 'reports'));
-        document.getElementById('reportTableBody').innerHTML = ''; // Clear existing table rows
-        querySnapshot.forEach((doc, index) => {
-            const data = doc.data();
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${data.location}</td>
-                <td>${data.comments}</td>
-                <td>${data.remarks}</td>
-            `;
-            document.getElementById('reportTableBody').appendChild(newRow);
+        // Increment the serial number
+        serialNumber++;
+
+        // Clear the text areas after submission
+        textareas.forEach(textarea => {
+            textarea.value = '';
         });
-    } catch (error) {
-        console.error('Error adding report to Firestore:', error);
+
+        // Disable the submit button again until all fields are filled
+        submitButton.disabled = true;
     }
+
+    // Function to save all table data to Firestore under one document
+    async function saveReportData() {
+        const rows = reportTableBody.querySelectorAll('tr');
+        let reportData = [];
+
+        rows.forEach(row => {
+            const cells = row.querySelectorAll('td');
+            if (cells.length === 8) {
+                reportData.push({
+                    sn: cells[0].textContent,
+                    task: cells[1].textContent,
+                    location: cells[2].textContent,
+                    details: cells[3].textContent,
+                    challenges: cells[4].textContent,
+                    recommendations: cells[5].textContent,
+                    remarks: cells[6].textContent,
+                    dateTime: cells[7].textContent
+                });
+            }
+        });
+
+        try {
+            await setDoc(doc(db, 'reports', 'report_data'), { reportData });
+            alert('Saved successfully');
+        } catch (error) {
+            console.error("Error saving report data: ", error);
+        }
+    }
+
+    // Add event listener to the submit button
+    submitButton.addEventListener('click', addReportRow);
+
+    // Add event listener to the save button
+    saveButton.addEventListener('click', saveReportData);
+
+    // Initially disable the submit button
+    submitButton.disabled = true;
 });

@@ -15,15 +15,23 @@
         <div class="container">
             <h1>Daily Report</h1>
               <span id="reportDate"></span> <!-- Display the date here -->
-                <textarea id="dailyReport" name="dailyReport"  placeholder="Type your Report here..." required></textarea>
+              <label for="task">Task:
+                <textarea id="task" name="task"  placeholder="Type your Task here..." required></textarea>
+             </label>
                 <label for="location">Location:
                     <textarea id="location" name="location"  placeholder="Type your Location here..." required></textarea>
                 </label>
-                <label for="comments">Comments:
-                    <textarea id="comments" name="comments" placeholder="Type your Comments here..." required></textarea>
+                <label for="details">Details:
+                    <textarea id="details" name="details" placeholder="Type your Details here..." required></textarea>
                 </label>
-                <label for="remarks">Remarks:
-                    <textarea id="remarks" name="remarks"  placeholder="Type your Remarks here..."  required></textarea>
+                <label for="challenges">Challenges:
+                    <textarea id="challenges" name="challengess" placeholder="Type your Challenges here..." required></textarea>
+                </label>
+                <label for="recommendations">Recommendations:
+                    <textarea id="recommendations" name="recommendations"  placeholder="Type your Recommendations here..."  required></textarea>
+                </label>
+                <label for="remarks">Comments&Remarks:
+                    <textarea id="remarks" name="remarks"  placeholder="Type your Comments&Remarks here..."  required></textarea>
                 </label>
                 <div id="displayReport"></div> <!-- Container to display the report -->
                 <button type="button" id="submit">submit</button>
@@ -31,22 +39,28 @@
                     
                     <thead>
                         <tr>
-                            <th colspan="4" id="reportDates">Report as at [Date]</th> <!-- Added table heading for report date -->
+                            <th colspan="8" id="reportDates">Report as at [Date]</th> <!-- Added table heading for report date -->
                         </tr>
                         <tr>
                             <th>SN</th>
+                            <th>Task</th>
                             <th>Location</th>
-                            <th>Comment</th>
-                            <th>Remarks</th>
+                            <th>Details</th>
+                            <th>Challenges</th>
+                            <th>Recommendations</th>
+                            <th>Comments&Remarks</th>
+                            <th>Date and Time</th>
                         </tr>
                     </thead>
                     <tbody id="reportTableBody">
                         <!-- Table rows will be dynamically added here -->
                     </tbody>
                 </table>
+                <button type="button" id="save">Save</button>
         </div>
     </div>
     <script src="../js/index.js" type="module"></script>
+    <!-- <script src="../js/pull.js" type="module"></script> -->
      <!-- Include Firebase SDK -->
      <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js" type="module"></script>
      <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js" type="module"></script>

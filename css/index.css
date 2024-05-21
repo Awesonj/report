@@ -24,6 +24,7 @@ span{
     width: 20%; /* Adjust width as needed */
     background-color: #f0f0f0;
     padding: 20px;
+    height: 100hv;
 }
 
 .container {
@@ -67,6 +68,7 @@ textarea{
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    margin-bottom: 30px;
 }
 
 #reportTable th,
@@ -86,4 +88,12 @@ textarea{
 
 #reportTable tr:hover {
     background-color: #ddd;
+}
+#save{
+    padding: 5px;
+    margin-bottom: 30px;
+}
+label{
+    font-size: 20px;
+    font-weight: bold;
 }
