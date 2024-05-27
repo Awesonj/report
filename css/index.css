@@ -1,68 +1,38 @@
 body, html {
     margin: 0;
     padding: 0;
-    height: 100%;
+    height: auto;
 }
 h1 {
     margin-bottom: 10px; /* Add margin for spacing */
 }
 
-#reportDate {
+#reportDates {
     margin-left: auto; /* Move the span to the right end */
 }
-
-span{
-    font-size: 20px;
-}
-
 .report {
-    display: flex;
-    height: 100%;
+    display: flex; /* Use flexbox to align items */
 }
 
 .sidebar {
-    width: 20%; /* Adjust width as needed */
-    background-color: #f0f0f0;
-    padding: 20px;
-    height: 100hv;
+    width: 250px; /* Adjust the width as needed */
+    background-color: #f0f0f0; /* Example background color */
+    /* Other styles */
 }
 
 .container {
-    flex: 1;
-    padding: 20px;
-}
-
-/* Additional styles for sidebar and container content */
-.sidebar h1 {
-    margin: 0;
-    font-size: 24px;
-    color: #333;
-}
-.container {
-    flex: 1;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-}
-
-textarea{
+    flex-grow: 1; /* Allow the container to grow and fill available space */
+    padding: 20px; /* Add padding for spacing */
     width: 100%;
+    /* Other styles */
 }
 
-
-#submit {
-    align-self: flex-end;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    margin-top: 20px;
+.container span{
+    font-size: 20px;
+    display: flex;
+    margin-left: auto;
 }
 
-#submit:hover {
-    background-color: #0056b3;
-}
 /* CSS for the report table */
 #reportTable {
     width: 100%;
@@ -97,3 +67,12 @@ label{
     font-size: 20px;
     font-weight: bold;
 }
+textarea{
+    width:300px;
+    display: flex;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+
+
