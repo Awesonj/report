@@ -56,8 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let task = document.getElementById('task').value;
         let location = document.getElementById('location').value;
         let details = document.getElementById('details').value;
-        let challenges = document.getElementById('challenges').value;
-        let recommendations = document.getElementById('recommendations').value;
+        // let challenges = document.getElementById('challenges').value;
+        // let recommendations = document.getElementById('recommendations').value;
         let remarks = document.getElementById('remarks').value;
         let dateTime = new Date().toLocaleString();
 
@@ -65,7 +65,14 @@ document.addEventListener('DOMContentLoaded', () => {
         let newRow = document.createElement('tr');
 
         // Create and append cells to the row
-        let cells = [serialNumber, task, location, details, challenges, recommendations, remarks, dateTime];
+        let cells = [serialNumber, 
+            task, 
+            location,
+            details, 
+            // challenges, 
+            // recommendations, 
+            remarks, 
+            dateTime];
         cells.forEach(cellContent => {
             let cell = document.createElement('td');
             cell.textContent = cellContent;
@@ -100,8 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     task: cells[1].textContent,
                     location: cells[2].textContent,
                     details: cells[3].textContent,
-                    challenges: cells[4].textContent,
-                    recommendations: cells[5].textContent,
+                    // challenges: cells[4].textContent,
+                    // recommendations: cells[5].textContent,
                     remarks: cells[6].textContent,
                     dateTime: cells[7].textContent
                 });

@@ -43,10 +43,10 @@ async function displayReports() {
             locationCell.textContent = data.location;
             const detailsCell = document.createElement('td');
             detailsCell.textContent = data.details;
-            const challengesCell = document.createElement('td');
-            challengesCell.textContent = data.challenges;
-            const recommendationsCell = document.createElement('td');
-            recommendationsCell.textContent = data.recommendations;
+            // const challengesCell = document.createElement('td');
+            // challengesCell.textContent = data.challenges;
+            // const recommendationsCell = document.createElement('td');
+            // recommendationsCell.textContent = data.recommendations;
             const remarksCell = document.createElement('td');
             remarksCell.textContent = data.remarks;
             const dateTimeCell = document.createElement('td');
@@ -57,8 +57,8 @@ async function displayReports() {
             newRow.appendChild(taskCell);
             newRow.appendChild(locationCell);
             newRow.appendChild(detailsCell);
-            newRow.appendChild(challengesCell);
-            newRow.appendChild(recommendationsCell);
+            // newRow.appendChild(challengesCell);
+            // newRow.appendChild(recommendationsCell);
             newRow.appendChild(remarksCell);
             newRow.appendChild(dateTimeCell);
 
