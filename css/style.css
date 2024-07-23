@@ -1,0 +1,199 @@
+.contained {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 20px;
+  }
+  
+  h1{
+    margin-left: 40px;
+    margin-top: 10px;
+  }
+  
+  .stats-container {
+    border-radius: 7px;
+    box-shadow: 0px 2px 4px rgba(47, 47, 47, 0.2);
+    background-color: #fff;
+    color: #444444;
+    padding: 10px;
+    width: 180px;
+    height: 120px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: transform 0.3s ease; /* Add transition for transform property */
+  }
+  
+  .stats-container:hover {
+    background-color: #5d154b;
+    color: #fff;
+    transform: translateY(-5px); /* Apply a slight vertical bounce on hover */
+  }
+  
+  .stats-container:hover span {
+    background-color: #5d154b;
+    color: #fff;
+  }
+  
+  .stats-container h6 {
+    font-size: 16px;
+    margin-top: 10px; /* Adjust top margin */
+    max-width: 100px;
+  }
+  
+  .stats-container .icon-container {
+    position: absolute;
+    top: 30px; /* Position icon container at top */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center horizontally */
+  }
+  
+  .stats-container i {
+    font-size: 54px;
+    color: #5d154b; /* Icon color */
+  }
+  
+  .stats-container span {
+    font-size: 30px;
+    font-weight: bold;
+    color: #5d154b; /* Tag icon color */
+    position: absolute;
+    top: 5px;
+    /* right: 5px; */
+  }
+  
+  
+  .content {
+      padding: 20px;
+    }
+    
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .header h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+    
+    .year-filter {
+      display: flex;
+      align-items: center;
+      margin-right: auto;
+      margin-left: 5px;
+    }
+    
+    .year-filter select {
+      margin-right: 10px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    
+    .applyButton {
+      padding: 8px 12px;
+      background-color: #5d154b;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: -1px;
+    }
+    
+    .options {
+      display: flex;
+      align-items: center;
+    }
+    
+    .custom-dropdown {
+      position: relative;
+      margin-right: 10px;
+    }
+    
+    .custom-dropdown select {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-right: -10px;
+      z-index: 100;
+      display: none;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-color: #fff;
+    }
+    
+    .dropdown-arrow {
+      position: absolute;
+      top: 50%;
+      /* right: 10px; */
+      transform: translateY(-50%);
+      color: #666;
+      cursor: pointer;
+    }
+    
+    .dropdown-text {
+      display: inline-block;
+      margin-right: 5px;
+      font-weight: bold;
+      padding: 10px;
+    }
+    
+  
+  /* Chart Containers */
+  .chart-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .chart-container {
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    height: 400px; /* Fixed height for charts */
+    padding: 20px;
+    flex: 1; /* Each container takes equal width */
+    margin-right: 10px; /* Provide spacing between containers */
+  }
+  
+  .chart-container canvas {
+    width: 100%; /* Full width within container */
+    height: 70%; /* Adjusted height for better visualization */
+    margin-bottom: 20px;
+  }
+  
+  /* Specific Container Sizes */
+  .salary-chart-container {
+    max-width: 60%; /* Larger container for salary chart */
+  }
+  
+  .department-chart-container {
+    max-width: 20%; /* Smaller container for department pie chart */
+  }
+  
+  .graph-container {
+    max-width: 20%; /* Smaller container for graphs */
+  }
+  
+  /* Responsive Layout Adjustments */
+  @media (max-width: 768px) {
+    .chart-wrapper {
+      flex-direction: column; /* Stack containers vertically on smaller screens */
+    }
+  
+    .chart-container {
+      height: auto; /* Auto height for responsiveness */
+      margin-bottom: 10px;
+    }
+  }
+  

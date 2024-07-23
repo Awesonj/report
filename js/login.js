@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Query the collection for the document with the matching Staff ID
-            const q = query(collection(db, 'payslip'), where('staffId', '==', staffId));
+            const q = query(collection(db, 'luthreport'), where('staffId', '==', staffId));
             const querySnapshot = await getDocs(q);
 
             if (!querySnapshot.empty) {

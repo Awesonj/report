@@ -1,0 +1,239 @@
+:root {
+    --primary: #3d1c35;
+    --accent: #FF3D85;
+    --secondary: #645F88;
+    --success: #35bb78;
+    --info: #DA70D6;
+    --warning: #FAC14D;
+    --danger: #FF4943;
+    --grey: #B4B2C5;
+    --dark: #2D2B3A;
+    --light: #F6F5FC;
+  }
+  
+  body {
+     width: 100%;
+     height: 100vh;
+     margin: auto;
+     background-color:#ffffff;
+     font-family: Tahoma;
+     font-size: 16px;
+  }
+  /* .container {
+    display: flex;
+  } */
+  
+  .content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  img {
+    width: 150px; /* Adjust the width as needed */
+    height: auto; /* Maintain aspect ratio */
+    padding-top: 10px;
+    padding-left: 0px;
+  }
+  
+  
+  h1{
+    font-size: 40px;
+   
+    text-align: center;
+  }
+  h2{
+    
+    font-size: 25px;
+    text-align: center;
+    padding-bottom: 10px;
+  }
+  h3{
+    font-size: 20px;
+    text-align: center;
+    text-decoration: solid;
+  }
+  
+  /* Style for details button */
+  .fa-solid .fa-pen-to-square{
+    background-color: none;
+  }
+  
+  .records-header{
+    display: flex;
+  }
+  .searchStaff {
+    display: flow;
+    justify-content: center;
+    padding: 10px;
+    float: inline-start;
+  }
+  
+  #staffIdInput {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    align-content: center;
+    float: left;
+  
+  }
+  
+  #fetchDetailsButton {
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    margin-top: 2px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #3d1c35;
+    color: #fff;
+    margin-left: 10px;
+    width: 30%;
+  }
+  
+  #fetchDetailsButton:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Form container styling */
+  .form-container {
+    height: 720px;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    width: 80%; /* Adjust width as needed */
+    max-width: 600px; /* Set maximum width */
+    overflow: auto; /* Enable scrolling if content exceeds container height */
+  }
+  
+  /* Form container header */
+  .form-container h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  /* Form steps styling */
+  .form-step {
+    display: block;
+    margin-bottom: 20px;
+  }
+  
+  /* Form labels */
+  label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  /* Form inputs */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+  #department{
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+  
+  #gender{
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+  /* Button styles */
+  
+  /* Close button for form container */
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  /* Optional: Overlay background */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 900; /* Ensure overlay is behind form container */
+  }
+  
+  #formContainer,
+  #overlay {
+    display: none;
+  }
+  /* The Modal (background) */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  #pagination button {
+    margin-top: 15px;
+  }
+  
+  #pagination {
+    
+    float: right;
+    margin-top: 5px;
+    margin-right: 30px;
+  }
+  

@@ -21,7 +21,7 @@ const db = getFirestore(app);
 async function displayReports() {
     try {
         // Get all documents from the 'reports' collection
-        const querySnapshot = await getDocs(collection(db, 'reports'));
+        const querySnapshot = await getDocs(collection(db, 'reports', 'report_data'));
 
         // Counter for serial number (SN)
         let sn = 1;
@@ -84,21 +84,22 @@ document.addEventListener('DOMContentLoaded', displayReports);
 
 // Call the function to display the current date when the DOM content is loaded
 document.addEventListener('DOMContentLoaded', displayCurrentDate);
-$('.menu > ul > li').click(function (e) {
+
+$(".menu > ul > li").click(function (e) {
     // Remove the 'active' class from other menu items
-    $(this).siblings().removeClass('active');
+    $(this).siblings().removeClass("active");
     // Toggle the 'active' class on the clicked menu item
-    $(this).toggleClass('active');
+    $(this).toggleClass("active");
     // Toggle the visibility of the submenu
-    $(this).find('ul').slideToggle();
+    $(this).find("ul").slideToggle();
     // Close other submenus if they are open
-    $(this).siblings().find('ul').slideUp();
+    $(this).siblings().find("ul").slideUp();
     // Remove the 'active' class from submenu items
-    $(this).siblings().find('ul').find('li').removeClass('active');
+    $(this).siblings().find("ul").find("li").removeClass("active");
   });
   
-  $('.menu-btn').click(function () {
+  $(".menu-btn").click(function () {
     // Toggle the 'active' class on the sidebar
-    $('.sidebar').toggleClass('active');
+    $(".sidebar").toggleClass("active");
   });
       
