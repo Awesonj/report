@@ -1,8 +1,9 @@
+// Initialize Firebase
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js';
 import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAWwVoSru9MDFsxgZvR9jCAPmha9dkwn7I",
+  apiKey: "AIzaSyAWwVoSru9MDFsxgZvR9jCAPmha9dkwn7I",
   authDomain: "inventory-tracker-251d9.firebaseapp.com",
   projectId: "inventory-tracker-251d9",
   storageBucket: "inventory-tracker-251d9.appspot.com",
@@ -14,67 +15,48 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
 
-const registrationForm = document.getElementById('registrationForm');
+const form = document.getElementById('myForm');
 
-registrationForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
+form.addEventListener('submit', async (e) => {
+    e.preventDefault(); // Prevent default form submission
 
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  const repeatPassword = document.getElementById('repeatPassword').value;
-  const username = document.getElementById('username').value;
-  const firstName = document.getElementById('firstName').value;
-  const lastName = document.getElementById('lastName').value;
-  const middleName = document.getElementById('middleName').value;
-  const department = document.getElementById('department').value;
-  const designation = document.getElementById('designation').value;
+    // Get form values
+    const firstName = form['firstName'].value;
+    const lastName = form['lastName'].value;
+    const otherName = form['otherName'].value;
+    const email = form['email'].value;
+    const phoneNumber = form['phoneNumber'].value;
+    const gender = form['gender'].value;
+    const staffId = form['staffId'].value;
+    const department = form['department'].value;
+    const designation = form['designation'].value;
+    const unit = form['unit'].value;
 
-  // Validate password match
-  if (password !== repeatPassword) {
-    alert('Passwords do not match');
-    return;
-  }
+    // Prepare data object
+    const formData = {
+        firstName,
+        lastName,
+        otherName,
+        email,
+        phoneNumber,
+        gender,
+        staffId,
+        department,
+        designation,
+        unit
+    };
 
-  try {
-    // Save authentication details to Firebase Firestore collection 'Authentication'
-    const docRef = await addDoc(collection(db, 'Authentication'), {
-      email,
-      password,
-      username,
-      firstName,
-      lastName,
-      middleName,
-      department,
-      designation
-    });
+    try {
+        // Save data to Firestore
+        const docRef = await addDoc(collection(db, 'luthreport'), formData);
+        console.log('Document written with ID: ', docRef.id);
 
-    console.log('Document written with ID: ', docRef.id);
-    alert('Registration successful!'); // Display success message
+        // Clear form inputs after submission
+        form.reset();
 
-    // Redirect to login page
-    window.location.href = 'login.html';
-  } catch (error) {
-    console.error('Error adding document: ', error);
-    alert('Registration failed. Please try again.');
-  }
-});
-
-// Toggle Password Visibility
-const togglePassword = document.getElementById('togglePassword');
-const passwordInput = document.getElementById('password');
-
-togglePassword.addEventListener('click', () => {
-    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-    passwordInput.setAttribute('type', type);
-    togglePassword.classList.toggle('fa-eye-slash'); // Toggle eye-slash icon
-});
-
-// Repeat Password Input
-const toggleRepeatPassword = document.getElementById('toggleRepeatPassword');
-const repeatPasswordInput = document.getElementById('repeatPassword');
-
-toggleRepeatPassword.addEventListener('click', () => {
-    const type = repeatPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-    repeatPasswordInput.setAttribute('type', type);
-    toggleRepeatPassword.classList.toggle('fa-eye-slash'); // Toggle eye-slash icon
+        // Optionally, show success message or update UI
+    } catch (error) {
+        console.error('Error adding document: ', error);
+        // Handle errors here
+    }
 });

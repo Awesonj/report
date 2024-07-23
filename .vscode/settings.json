@@ -1,3 +1,7 @@
 {
+<<<<<<< HEAD
     "liveServer.settings.port": 5502
+=======
+    "livePreview.defaultPreviewPath": "/html/addstaff.html"
+>>>>>>> a8a6ea557a5bfab2e455fb2f49815bd6063a8408
 }
