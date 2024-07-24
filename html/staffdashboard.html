@@ -6,6 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="../css/dashboard.css" />
     <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/staffdashboard.css" />
     <!-- <link rel="stylesheet" href="../css/styles.css" /> -->
     <!-- Include Font Awesome -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
@@ -28,6 +29,8 @@
       type="module"
     ></script>
     <script src="../js/dashboard.js" type="module"></script>
+
+    <script src="../js/staffdashboard.js" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
@@ -61,10 +64,14 @@
                 ></a>
                 <ul class="sub-menu">
                   <li>
-                    <a href="./reports.html"><span class="text">Reports</span></a>
+                    <a href="./reports.html"
+                      ><span class="text">Reports</span></a
+                    >
                   </li>
                   <li>
-                    <a href="./index.html"><span class="text">Add Reports</span></a>
+                    <a href="./index.html"
+                      ><span class="text">Add Reports</span></a
+                    >
                   </li>
                 </ul>
               </li>
@@ -112,7 +119,6 @@
           </ul>
         </div>
       </div>
-
 
       <!-- main content -->
       <div class="content">
@@ -162,8 +168,34 @@
         </div>
 
         <div class="contained">
+          <!-- User profile container -->
+          <div class="user-profile-container">
+            <div class="user-profile">
+              <div class="user-img">
+                <img
+                  id="userImage"
+                  src="../img/default-user-image.png"
+                  alt="User Image"
+                />
+              </div>
+              <div class="user-details">
+                <p id="userName" class="title"> </p>
+                <p id="userDesignation" class="name"></p>
+                <p id="userStaffId" class="name"></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact info container -->
+          <div class="contact-info-container">
+            <div class="contact-info">
+              <p id="userPhoneNumber"></p>
+              <p id="userEmail"></p>
+            </div>
+          </div>
+
           <!-- Total Employees Container -->
-          <div class="stats-container" id="totalEmployeesContainer">
+          <div class="total-stats-container" id="totalEmployeesContainer">
             <div class="icon-container">
               <i class="fas fa-users"></i>
               <h6>Total Employees</h6>
@@ -172,140 +204,10 @@
               ><i class="fas fa-calendar-alt"></i
             ></span>
           </div>
-
-          <!-- Total Female Staff Container -->
-          <div class="stats-container" id="totalFemaleContainer">
-            <div class="icon-container">
-              <i class="fas fa-female"></i>
-              <h6>Female Staff</h6>
-            </div>
-            <span id="totalFemale" class="tag-icon"
-              ><i class="fas fa-calendar-alt"></i
-            ></span>
-          </div>
-
-          <!-- Total Male Staff Container -->
-          <div class="stats-container" id="totalMaleContainer">
-            <div class="icon-container">
-              <i class="fas fa-male"></i>
-              <h6>Male Staff</h6>
-            </div>
-            <span id="totalMale" class="tag-icon"
-              ><i class="fas fa-calendar-alt"></i
-            ></span>
-          </div>
-
-          <!-- Total Billers Staff Container -->
-          <div class="stats-container" id="totalBillersContainer">
-            <div class="icon-container">
-              <i class="fas fa-user-graduate"></i>
-              <h6>Billers</h6>
-            </div>
-            <span id="totalBillers" class="tag-icon"
-              ><i class="fas fa-calendar-alt"></i
-            ></span>
-          </div>
-
-          <!-- Total HIMS Staff Container -->
-          <div class="stats-container" id="totalHIMSContainer">
-            <div class="icon-container">
-              <i class="fas fa-user-tie"></i>
-              <h6>HIMS Support</h6>
-            </div>
-            <span id="totalHIMS" class="tag-icon"
-              ><i class="fas fa-calendar-alt"></i
-            ></span>
-          </div>
-
-          <!-- Total LAN Staff Container -->
-          <div class="stats-container" id="totalLANContainer">
-            <div class="icon-container">
-              <i class="fas fa-user-secret"></i>
-              <h6>LAN Installation</h6>
-            </div>
-            <span id="totalLAN" class="tag-icon"
-              ><i class="fas fa-calendar-alt"></i
-            ></span>
-          </div>
-
-          <div class="stats-container" id="totalWEBContainer">
-            <div class="icon-container">
-              <i class="fas fa-user-secret"></i>
-              <h6>Web Development</h6>
-            </div>
-            <span id="totalWEB" class="tag-icon"
-              ><i class="fas fa-calendar-alt"></i
-            ></span>
-          </div>
-
-          <div class="stats-container" id="totalITContainer">
-            <div class="icon-container">
-              <i class="fas fa-user-secret"></i>
-              <h6>IT student</h6>
-            </div>
-            <span id="totalIT" class="tag-icon"
-              ><i class="fas fa-calendar-alt"></i
-            ></span>
-          </div>
         </div>
-
-          <!-- Container 1: Bar Chart -->
-          <div class="chart-wrapper">
-            <!-- Container 1: Bar Chart -->
-            <!-- Chart Containers -->
-            <div
-              class="chart-container salary-chart-container"
-              id="salaryChartContainer"
-            >
-              <div>Basic Salary Data <span id="totalBaseSalary"></span></div>
-              <hr />
-              <br />
-              <canvas id="salaryChartCanvas"></canvas>
-               
-            </div>
-
-            <div
-              class="chart-container department-chart-container"
-              id="departmentChartContainer"
-            >
-              <div>Department Pie Chart <span id="totalBaseSalary"></span></div>
-              <hr />
-              <br />
-              <canvas id="departmentChartCanvas"></canvas>
-            </div>
-
-            <div class="chart-container graph-container" id="graphContainer">
-              <div>Tax and Pension Data <span id="totalBaseSalary"></span></div>
-              <hr />
-              <br />
-              <canvas id="salaryGraphCanvas"></canvas>
-              <canvas id="pensionTaxGraphCanvas"></canvas>
-              <div>Total Pensions: <span id="totalPensions"></span></div>
-              <div>Total Tax: <span id="totalTax"></span></div>
-            </div>
-          </div>
-          <table id="recentReportsTable">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Department</th>
-                <th>Time Submitted</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-          
-          <div id="notificationContainer"></div>
-          
-          </div>
-        </div>
-        
       </div>
-
     </div>
 
-  
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
       integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="

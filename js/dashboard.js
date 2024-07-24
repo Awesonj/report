@@ -314,6 +314,7 @@ function renderGraphs(baseSalaryData, pensionData, taxData) {
   document.getElementById('totalTax').textContent = taxData.total;
 }
 
+
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     // Fetch data from Firestore and render charts
@@ -348,3 +349,50 @@ $(".menu-btn").click(function () {
   // Toggle the 'active' class on the sidebar
   $(".sidebar").toggleClass("active");
 });
+
+// Function to display the last 10 reports in the table and show notifications
+async function displayRecentReports() {
+  try {
+    const reportsRef = collection(db, 'reportbt');
+    const q = query(reportsRef, orderBy('timeSubmitted', 'desc'), limit(10)); // Assuming 'timeSubmitted' is a timestamp field
+
+    onSnapshot(q, (snapshot) => {
+      const recentReportsTable = document.getElementById('recentReportsTable').getElementsByTagName('tbody')[0];
+      const notificationContainer = document.getElementById('notificationContainer');
+
+      recentReportsTable.innerHTML = ''; // Clear existing rows
+
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const { name, department, timeSubmitted } = data;
+
+        // Create table row
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+          <td>${snapshot.size - snapshot.docs.indexOf(doc)}</td>
+          <td>${name}</td>
+          <td>${department}</td>
+          <td>${new Date(timeSubmitted.seconds * 1000).toLocaleString()}</td>
+        `;
+
+        recentReportsTable.appendChild(newRow);
+
+        // Create notification message
+        const notification = document.createElement('div');
+        notification.classList.add('notification');
+        notification.innerHTML = `<strong>${name}</strong> submitted a report from ${department} at ${new Date(timeSubmitted.seconds * 1000).toLocaleString()}.`;
+        
+        // Insert notification at the beginning
+        notificationContainer.prepend(notification);
+        
+        // Limit notifications to 10
+        if (notificationContainer.children.length > 10) {
+          notificationContainer.removeChild(notificationContainer.lastChild);
+        }
+      });
+    });
+
+  } catch (error) {
+    console.error('Error fetching recent reports:', error);
+  }
+}
