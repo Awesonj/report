@@ -247,46 +247,31 @@
               ><i class="fas fa-calendar-alt"></i
             ></span>
           </div>
-
-          <!-- Container 1: Bar Chart -->
-          <div class="chart-wrapper">
-            <!-- Container 1: Bar Chart -->
-            <!-- Chart Containers -->
-            <div
-              class="chart-container salary-chart-container"
-              id="salaryChartContainer"
-            >
-              <div>Basic Salary Data <span id="totalBaseSalary"></span></div>
-              <hr />
-              <br />
-              <canvas id="salaryChartCanvas"></canvas>
-            </div>
-
-            <div
-              class="chart-container department-chart-container"
-              id="departmentChartContainer"
-            >
-              <div>Department Pie Chart <span id="totalBaseSalary"></span></div>
-              <hr />
-              <br />
-              <canvas id="departmentChartCanvas"></canvas>
-            </div>
-
-            <div class="chart-container graph-container" id="graphContainer">
-              <div>Tax and Pension Data <span id="totalBaseSalary"></span></div>
-              <hr />
-              <br />
-              <canvas id="salaryGraphCanvas"></canvas>
-              <canvas id="pensionTaxGraphCanvas"></canvas>
-              <div>Total Pensions: <span id="totalPensions"></span></div>
-              <div>Total Tax: <span id="totalTax"></span></div>
-            </div>
+        </div>
+        <div class="recent-reports">
+          <h3>Recent Reports</h3>
+          <table id="recentReportsTable">
+            <thead>
+              <tr>
+                <th>SN</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Time Submitted</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Table rows will be dynamically populated -->
+            </tbody>
+          </table>
+        </div>
           </div>
         </div>
+        
       </div>
+
     </div>
 
-    <!-- <script src="../js//userdetails.js" type="module"></script> -->
+  
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
       integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
