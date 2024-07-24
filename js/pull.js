@@ -1,5 +1,3 @@
-// pull.js
-
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js';
 import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js';
 
@@ -17,54 +15,61 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Function to display the contents of the Firestore 'reports' collection in the table
+// Function to display the contents of the Firestore 'reportbt' collection in the table
 async function displayReports() {
     try {
-        // Get all documents from the 'reports' collection
-        const querySnapshot = await getDocs(collection(db, 'reports', 'report_data'));
-
-        // Counter for serial number (SN)
+        const querySnapshot = await getDocs(collection(db, 'reportbt')); // Corrected collection name
+        
         let sn = 1;
 
-        // Loop through each document in the query snapshot
         querySnapshot.forEach(doc => {
-            // Get data from the document
             const data = doc.data();
+            console.log('Document ID:', doc.id, 'Data:', data); // Log to check if data is retrieved
+            
+            // Access the reportData array from Firestore document
+            const reportDataArray = data.reportData || [];
+            console.log('Report Data:', reportDataArray); // Log to check if reportData is retrieved
+            
+            // Iterate over each item in the reportData array
+            reportDataArray.forEach(item => {
+                // Create a new table row for each item
+                const newRow = document.createElement('tr');
+                
+                // Create table cells for each field
+                const snCell = document.createElement('td');
+                snCell.textContent = sn++; // Increment SN for indentation
+                const taskCell = document.createElement('td');
+                taskCell.textContent = item.task || '';
+                const locationCell = document.createElement('td');
+                locationCell.textContent = item.location || '';
+                const detailsCell = document.createElement('td');
+                detailsCell.textContent = item.details || '';
+                const remarksCell = document.createElement('td');
+                remarksCell.textContent = item.remarks || '';
+                const priorityCell = document.createElement('td');
+                priorityCell.textContent = item.priorityOption || '';
+                const progressCell = document.createElement('td');
+                progressCell.textContent = item.progressOption || '';
+                const dateTimeCell = document.createElement('td');
+                dateTimeCell.textContent = item.dateTime || '';
 
-            // Create a new table row
-            const newRow = document.createElement('tr');
+                // Append cells to the new row
+                newRow.appendChild(snCell);
+                newRow.appendChild(taskCell);
+                newRow.appendChild(locationCell);
+                newRow.appendChild(detailsCell);
+                newRow.appendChild(remarksCell);
+                newRow.appendChild(priorityCell);
+                newRow.appendChild(progressCell);
+                newRow.appendChild(dateTimeCell);
 
-            // Create table cells for each field
-            const snCell = document.createElement('td');
-            snCell.textContent = sn++; // Increment SN for indentation
-            const taskCell = document.createElement('td');
-            taskCell.textContent = data.task;
-            const locationCell = document.createElement('td');
-            locationCell.textContent = data.location;
-            const detailsCell = document.createElement('td');
-            detailsCell.textContent = data.details;
-            // const challengesCell = document.createElement('td');
-            // challengesCell.textContent = data.challenges;
-            // const recommendationsCell = document.createElement('td');
-            // recommendationsCell.textContent = data.recommendations;
-            const remarksCell = document.createElement('td');
-            remarksCell.textContent = data.remarks;
-            const dateTimeCell = document.createElement('td');
-            dateTimeCell.textContent = data.timestamp; // Assuming timestamp is stored in the Firestore document
-
-            // Append cells to the new row
-            newRow.appendChild(snCell);
-            newRow.appendChild(taskCell);
-            newRow.appendChild(locationCell);
-            newRow.appendChild(detailsCell);
-            // newRow.appendChild(challengesCell);
-            // newRow.appendChild(recommendationsCell);
-            newRow.appendChild(remarksCell);
-            newRow.appendChild(dateTimeCell);
-
-            // Append the new row to the table body
-            document.getElementById('reportTableBody').appendChild(newRow);
+                // Append the new row to the table body
+                document.getElementById('reportTableBody').appendChild(newRow);
+            });
         });
+
+        // Display success message after reports are displayed
+        console.log('Reports displayed successfully!');
     } catch (error) {
         console.error('Error fetching reports from Firestore:', error);
     }
@@ -85,6 +90,7 @@ document.addEventListener('DOMContentLoaded', displayReports);
 // Call the function to display the current date when the DOM content is loaded
 document.addEventListener('DOMContentLoaded', displayCurrentDate);
 
+// Toggle active class on sidebar menu items
 $(".menu > ul > li").click(function (e) {
     // Remove the 'active' class from other menu items
     $(this).siblings().removeClass("active");
@@ -96,10 +102,10 @@ $(".menu > ul > li").click(function (e) {
     $(this).siblings().find("ul").slideUp();
     // Remove the 'active' class from submenu items
     $(this).siblings().find("ul").find("li").removeClass("active");
-  });
-  
-  $(".menu-btn").click(function () {
+});
+
+// Toggle active class on sidebar
+$(".menu-btn").click(function () {
     // Toggle the 'active' class on the sidebar
     $(".sidebar").toggleClass("active");
-  });
-      
+});

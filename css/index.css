@@ -29,14 +29,14 @@ h1 {
     /* Other styles */
 }
 
-.container {
+.wcontainer {
     flex-grow: 1; /* Allow the container to grow and fill available space */
     padding: 20px; /* Add padding for spacing */
     width: 100%;
     /* Other styles */
 }
 
-.container span{
+.wcontainer span{
     font-size: 20px;
     display: flex;
     margin-left: auto;
@@ -116,5 +116,32 @@ textarea{
     font-weight: 600;
     cursor: pointer;
 }
+ #progressOption{
+    width: 75%;
+    height: 35px;
+    border: 2px solid rgb(87, 40, 141);
+    border-radius: 4px;
+    box-shadow: 20px, 20px, 20px, rgb(24, 1, 49);
 
+}
 
+.status {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    /* gap: 20px; */
+    margin-bottom: 20px;
+
+}
+
+#priorityOption{
+    width: 75%;
+    height: 35px;
+    border: 2px solid rgb(87, 40, 141);
+    border-radius: 4px;
+    box-shadow: 20px, 20px, 20px, rgb(24, 1, 49);
+}
+#progress,
+#priority {
+    width: 30%;
+}

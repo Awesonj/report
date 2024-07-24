@@ -1,16 +1,16 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js';
-import { getFirestore, doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js';
+import { getFirestore, collection, addDoc } from 'https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // Firebase configuration
     const firebaseConfig = {
-    apiKey: 'AIzaSyAWwVoSru9MDFsxgZvR9jCAPmha9dkwn7I',
-    authDomain: 'inventory-tracker-251d9.firebaseapp.com',
-    projectId: 'inventory-tracker-251d9',
-    storageBucket: 'inventory-tracker-251d9.appspot.com',
-    messagingSenderId: '687688694025',
-    appId: '1:687688694025:web:8687bfa31dc57a5177bbd8',
-    measurementId: 'G-XLKM7VBSSD',
+        apiKey: 'AIzaSyAWwVoSru9MDFsxgZvR9jCAPmha9dkwn7I',
+        authDomain: 'inventory-tracker-251d9.firebaseapp.com',
+        projectId: 'inventory-tracker-251d9',
+        storageBucket: 'inventory-tracker-251d9.appspot.com',
+        messagingSenderId: '687688694025',
+        appId: '1:687688694025:web:8687bfa31dc57a5177bbd8',
+        measurementId: 'G-XLKM7VBSSD',
     };
 
     // Initialize Firebase
@@ -56,8 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
         let task = document.getElementById('task').value;
         let location = document.getElementById('location').value;
         let details = document.getElementById('details').value;
-        // let challenges = document.getElementById('challenges').value;
-        // let recommendations = document.getElementById('recommendations').value;
+        let priorityOption = document.getElementById('priorityOption').value;
+        let progressOption = document.getElementById('progressOption').value;
         let remarks = document.getElementById('remarks').value;
         let dateTime = new Date().toLocaleString();
 
@@ -69,9 +69,9 @@ document.addEventListener('DOMContentLoaded', () => {
             task, 
             location,
             details, 
-            // challenges, 
-            // recommendations, 
-            remarks, 
+            remarks,
+            priorityOption, 
+            progressOption,  
             dateTime];
         cells.forEach(cellContent => {
             let cell = document.createElement('td');
@@ -107,16 +107,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     task: cells[1].textContent,
                     location: cells[2].textContent,
                     details: cells[3].textContent,
-                    // challenges: cells[4].textContent,
-                    // recommendations: cells[5].textContent,
-                    remarks: cells[6].textContent,
+                    remarks: cells[4].textContent,
+                    priorityOption: cells[5].textContent,
+                    progressOption: cells[6].textContent,
                     dateTime: cells[7].textContent
                 });
             }
         });
 
         try {
-            await setDoc(doc(db, 'reports', 'report_data'), { reportData });
+            await addDoc(collection(db, 'reportbt'), { reportData });
             alert('Saved successfully');
         } catch (error) {
             console.error("Error saving report data: ", error);
@@ -131,23 +131,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initially disable the submit button
     submitButton.disabled = true;
-});
 
-$(".menu > ul > li").click(function (e) {
-    // Remove the 'active' class from other menu items
-    $(this).siblings().removeClass("active");
-    // Toggle the 'active' class on the clicked menu item
-    $(this).toggleClass("active");
-    // Toggle the visibility of the submenu
-    $(this).find("ul").slideToggle();
-    // Close other submenus if they are open
-    $(this).siblings().find("ul").slideUp();
-    // Remove the 'active' class from submenu items
-    $(this).siblings().find("ul").find("li").removeClass("active");
-  });
-  
-  $(".menu-btn").click(function () {
-    // Toggle the 'active' class on the sidebar
-    $(".sidebar").toggleClass("active");
-  });
-      
+    // Menu click functionality
+    $(".menu > ul > li").click(function (e) {
+        // Remove the 'active' class from other menu items
+        $(this).siblings().removeClass("active");
+        // Toggle the 'active' class on the clicked menu item
+        $(this).toggleClass("active");
+        // Toggle the visibility of the submenu
+        $(this).find("ul").slideToggle();
+        // Close other submenus if they are open
+        $(this).siblings().find("ul").slideUp();
+        // Remove the 'active' class from submenu items
+        $(this).siblings().find("ul").find("li").removeClass("active");
+    });
+
+    // Menu button click functionality
+    $(".menu-btn").click(function () {
+        // Toggle the 'active' class on the sidebar
+        $(".sidebar").toggleClass("active");
+    });
+
+});
