@@ -143,6 +143,44 @@ function displayStaffRecords(docs, currentPage, pageSize) {
   staffDetailsElement.appendChild(table);
 }
 
+
+// Import Firebase SDK (if necessary) - removed for brevity since it's already imported in HTML
+
+document.addEventListener('DOMContentLoaded', () => {
+  const addStaffButton = document.getElementById('addStaffButton');
+  const formContainer = document.getElementById('formContainer');
+  const overlay = document.getElementById('overlay');
+
+  // Show form container and overlay when Add button is clicked
+  addStaffButton.addEventListener('click', () => {
+    formContainer.style.display = 'block';
+    overlay.style.display = 'block';
+  });
+
+  // Close form container and overlay when close button is clicked
+  function closeFormContainer() {
+    formContainer.style.display = 'none';
+    overlay.style.display = 'none';
+  }
+
+  // Close form container and overlay when overlay is clicked outside the form
+  overlay.addEventListener('click', () => {
+    closeFormContainer();
+  });
+
+  // Handle form submission (if needed)
+  const myForm = document.getElementById('myForm');
+  myForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    // Handle form submission logic here, e.g., sending data to Firebase
+    // After submission, close the form container and overlay
+    closeFormContainer();
+  });
+});
+
+// Additional JavaScript code for Firebase Firestore operations can be added here
+
+
 $(".menu > ul > li").click(function (e) {
   // Remove the 'active' class from other menu items
   $(this).siblings().removeClass("active");
