@@ -5,6 +5,9 @@ import {
   collection,
   doc,
   getDoc,
+  query,
+  where,
+  getDocs,
 } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
 // Initialize Firebase app and Firestore
@@ -117,6 +120,9 @@ function createTableRow(sn, report) {
   return newRow;
 }
 
+
+
+
 // Function to filter reports based on selected date
 async function filterReports() {
     try {
@@ -177,6 +183,43 @@ async function filterReports() {
       console.error("Error filtering reports:", error);
     }
   }
+
+  
+const fetchUserData = async () => {
+    const staffId = localStorage.getItem("staffId");
+
+    if (staffId) {
+      try {
+        // Query Firestore for user data using staffId
+        const q = query(
+          collection(db, "luthreport"),
+          where("staffId", "==", staffId)
+        );
+        const querySnapshot = await getDocs(q);
+        console.log("Query snapshot:", querySnapshot);
+
+        if (!querySnapshot.empty) {
+          // Since staffId is not the document ID, we assume there's only one matching document
+          querySnapshot.forEach((doc) => {
+            const userData = doc.data();
+            // Use userData as needed, e.g., display user's name
+            document.getElementById(
+              "userData"
+            ).innerHTML = `<p>Welcome, ${userData.firstName} ${userData.lastName}</p>`;
+            console.log("User data:", userData);
+          });
+        } else {
+          console.log("No document found with staffId:", staffId);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    } else {
+      console.log("Staff ID not found in localStorage");
+    }
+  };
+
+
   
 
 // Event listener for the filter button click
@@ -214,6 +257,7 @@ document.addEventListener("DOMContentLoaded", displayReports);
 // Call the function to display the current date when the DOM content is loaded
 document.addEventListener("DOMContentLoaded", displayCurrentDate);
 
+fetchUserData();
 // Toggle active class on sidebar menu items
 $(".menu > ul > li").click(function (e) {
   // Remove the 'active' class from other menu items
