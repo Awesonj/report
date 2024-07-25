@@ -53,7 +53,9 @@ document.addEventListener("DOMContentLoaded", () => {
           // Staff ID exists, redirect to dashboard.html with the staffId as a parameter
           console.log("Staff ID exists. Redirecting to dashboard.html");
           // Handle successful login
+          localStorage.setItem("staffId", staffId);
           window.location.href = `../html/staffdashboard.html?staffId=${staffId}`;
+          console.log("Staff ID saved to localStorage:", staffId);
         } else {
           // Staff ID does not exist, show error message
           console.log("Staff ID does not exist.");

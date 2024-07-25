@@ -30,7 +30,7 @@
           </div>
           <div class="user-details">
             <p class="title"></p>
-            <p class="name"></p>
+            <p class="name"> <div id="userData"></div></p>
           </div>
         </div>
         <div class="nav">
@@ -104,6 +104,7 @@
       <div class="wcontainer">
         <h1>Daily Report</h1>
         <span id="reportDate"></span>
+       
         <!-- Display the date here -->
         <label for="task"
           >Task:
@@ -157,7 +158,7 @@
               <option value="Low">Low</option>
             </select>
           </label>
-        <label for="progress" id="progress">
+          <label for="progress" id="progress">
             Progress:
             <select name="progress" id="progressOption">
               <option value="NotStarted">Not Started</option>
@@ -206,7 +207,6 @@
       integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
       crossorigin="anonymous"
     ></script>
-    <script src="../js/index.js" type="module"></script>
     <!-- <script src="../js/pull.js" type="module"></script> -->
     <!-- Include Firebase SDK -->
     <script
@@ -217,5 +217,7 @@
       src="https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js"
       type="module"
     ></script>
+
+    <script src="../js/index.js" type="module"></script>
   </body>
 </html>
