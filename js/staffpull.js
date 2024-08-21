@@ -1,10 +1,11 @@
-// Import Firebase modules
+// Initialize Firebase app and Firestore
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 import {
   getFirestore,
   collection,
   doc,
   getDoc,
+  setDoc,
   query,
   where,
   getDocs,
@@ -85,42 +86,172 @@ async function displayReports() {
   }
 }
 
-// Function to create a table row for a report
 function createTableRow(sn, report) {
-  const newRow = document.createElement("tr");
+    const newRow = document.createElement("tr");
+  
+    // Create table cells for each field
+    const snCell = document.createElement("td");
+    snCell.textContent = sn;
+    const taskCell = document.createElement("td");
+    taskCell.textContent = report.task || "";
+    const locationCell = document.createElement("td");
+    locationCell.textContent = report.location || "";
+    const detailsCell = document.createElement("td");
+    detailsCell.textContent = report.details || "";
+    
+    // Remarks cell with edit and save buttons
+    const remarksCell = document.createElement("td");
+    remarksCell.style.position = "relative"; // Ensure relative positioning for absolute buttons
+    const remarksDiv = document.createElement("div");
+    remarksDiv.style.display = "flex";
+    remarksDiv.style.alignItems = "center";
+    const remarksText = document.createElement("span");
+    remarksText.textContent = report.remarks || "";
+    remarksText.style.flex = "1"; // Make the text take up remaining space
+    const remarksEditButton = document.createElement("button");
+    remarksEditButton.textContent = "Edit";
+    remarksEditButton.style.marginRight = "5px"; // Adjust margin as needed
+    remarksEditButton.addEventListener("click", () => {
+      remarksText.contentEditable = true;
+      remarksText.focus();
+      remarksEditButton.style.display = "none";
+      remarksSaveButton.style.display = "inline-block";
+    });
+    const remarksSaveButton = document.createElement("button");
+    remarksSaveButton.textContent = "Save";
+    remarksSaveButton.style.display = "none";
+    remarksSaveButton.addEventListener("click", () => {
+      remarksText.contentEditable = false;
+      remarksEditButton.style.display = "inline-block";
+      remarksSaveButton.style.display = "none";
+      // Update Firestore with the new remarks
+      updateRemarks(report, remarksText.textContent);
+    });
+    remarksDiv.appendChild(remarksText);
+    remarksDiv.appendChild(remarksEditButton);
+    remarksDiv.appendChild(remarksSaveButton);
+    remarksCell.appendChild(remarksDiv);
+  
+    const priorityCell = document.createElement("td");
+    priorityCell.textContent = report.priorityOption || "";
+  
+    // Progress cell with select dropdown
+    const progressCell = document.createElement("td");
+    const progressSelect = document.createElement("select");
+    progressSelect.addEventListener("change", (event) => {
+      const newValue = event.target.value;
+      updateProgress(report, newValue);
+    });
+    const progressOptions = ["NotStarted", "InProgress", "Completed"];
+    progressOptions.forEach((option) => {
+      const optionElement = document.createElement("option");
+      optionElement.value = option;
+      optionElement.textContent = option;
+      progressSelect.appendChild(optionElement);
+    });
+    progressSelect.value = report.progressOption || ""; // Set initial value based on Firestore data
+    progressCell.appendChild(progressSelect);
+  
+    const dateTimeCell = document.createElement("td");
+    dateTimeCell.textContent = report.dateTime || "";
+  
+    // Append cells to the new row
+    newRow.appendChild(snCell);
+    newRow.appendChild(taskCell);
+    newRow.appendChild(locationCell);
+    newRow.appendChild(detailsCell);
+    newRow.appendChild(remarksCell);
+    newRow.appendChild(priorityCell);
+    newRow.appendChild(progressCell);
+    newRow.appendChild(dateTimeCell);
+  
+    return newRow;
+  }
+  
 
-  // Create table cells for each field
-  const snCell = document.createElement("td");
-  snCell.textContent = sn;
-  const taskCell = document.createElement("td");
-  taskCell.textContent = report.task || "";
-  const locationCell = document.createElement("td");
-  locationCell.textContent = report.location || "";
-  const detailsCell = document.createElement("td");
-  detailsCell.textContent = report.details || "";
-  const remarksCell = document.createElement("td");
-  remarksCell.textContent = report.remarks || "";
-  const priorityCell = document.createElement("td");
-  priorityCell.textContent = report.priorityOption || "";
-  const progressCell = document.createElement("td");
-  progressCell.textContent = report.progressOption || "";
-  const dateTimeCell = document.createElement("td");
-  dateTimeCell.textContent = report.dateTime || "";
-
-  // Append cells to the new row
-  newRow.appendChild(snCell);
-  newRow.appendChild(taskCell);
-  newRow.appendChild(locationCell);
-  newRow.appendChild(detailsCell);
-  newRow.appendChild(remarksCell);
-  newRow.appendChild(priorityCell);
-  newRow.appendChild(progressCell);
-  newRow.appendChild(dateTimeCell);
-
-  return newRow;
-}
-
-
+  async function updateRemarks(report, newRemarks) {
+    try {
+      const staffId = localStorage.getItem("staffId");
+      if (!staffId) {
+        console.log("Staff ID not found in localStorage");
+        return;
+      }
+  
+      const docRef = doc(db, "reportbt", staffId);
+      const docSnap = await getDoc(docRef);
+  
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        const reportsArray = data.reports || [];
+  
+        // Find the index of the report to update
+        const reportIndex = reportsArray.findIndex((r) => r.sn === report.sn);
+  
+        if (reportIndex !== -1) {
+          // Update the remarks field
+          reportsArray[reportIndex].remarks = newRemarks;
+  
+          // Update Firestore document with the modified reportsArray
+          await setDoc(docRef, { reports: reportsArray }, { merge: true });
+  
+          console.log("Remarks updated successfully:", newRemarks);
+  
+          // Optionally, update the UI to reflect the change
+          // For example, you could reload the reports or update the specific row in the table
+          displayReports(); // Refresh the reports table after update
+        } else {
+          console.log("Report not found with SN:", report.sn);
+        }
+      } else {
+        console.log("No such document!");
+      }
+    } catch (error) {
+      console.error("Error updating remarks:", error);
+    }
+  }
+  
+  
+// Function to update progress in Firestore
+async function updateProgress(report, newProgress) {
+    try {
+      const staffId = localStorage.getItem("staffId");
+      if (!staffId) {
+        console.log("Staff ID not found in localStorage");
+        return;
+      }
+  
+      const docRef = doc(db, "reportbt", staffId);
+      const docSnap = await getDoc(docRef);
+  
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        const reportsArray = data.reports || [];
+  
+        // Find the index of the report to update
+        const reportIndex = reportsArray.findIndex((r) => r.sn === report.sn);
+  
+        if (reportIndex !== -1) {
+          // Update the progressOption field
+          reportsArray[reportIndex].progressOption = newProgress;
+  
+          // Update Firestore document with the modified reportsArray
+          await setDoc(docRef, { reports: reportsArray }, { merge: true });
+  
+          console.log("Progress updated successfully:", newProgress);
+  
+          // Optionally, update the UI to reflect the change
+          // For example, you could reload the reports or update the specific row in the table
+          displayReports(); // Refresh the reports table after update
+        } else {
+          console.log("Report not found with SN:", report.sn);
+        }
+      } else {
+        console.log("No such document!");
+      }
+    } catch (error) {
+      console.error("Error updating progress:", error);
+    }
+  }
 
 
 // Function to filter reports based on selected date

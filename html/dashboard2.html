@@ -34,76 +34,84 @@
   <div class="container">
     <div class="sidebar">
       <div class="menu-btn"><i class="ph-bold ph-caret-left"></i></div>
-      <div class="head">
-        <div class="user-img">
-          <img src="../img//bt-logo-1.png" alt="" />
+        <div class="head">
+          <div class="user-img">
+            <img src="../img//bt-logo-1.png" alt="" />
+          </div>
+          <div class="user-details">
+            <p class="title"></p>
+            <p class="name"></p>
+          </div>
         </div>
-        <div class="user-details">
-          <p class="title"></p>
-          <p class="name"></p>
+        <div class="nav">
+          <div class="menu">
+            <p class="title">Main</p>
+            <ul>
+              <li>
+                <a href="./dashboard.html"
+                  ><i class="icon ph-bold ph-house-simple"></i
+                  ><span class="text">Dashboard</span></a
+                >
+              </li>
+              <li class="active">
+                <a href="./reports.html"
+                  ><i class="icon ph-bold ph-user"></i
+                  ><span class="text">Staff Reports</span
+                  ><i class="arrow ph-bold ph-caret-down"></i
+                ></a>
+                <!-- <ul class="sub-menu">
+                  <li>
+                    <a href=""><span class="text">Reports</span></a>
+                  </li>
+                  <li>
+                    <a href="./index.html"><span class="text">Add Reports</span></a>
+                  </li>
+                </ul> -->
+              </li>
+              <!-- <li>
+                <a href="./addstaff.html"
+                  ><i class="icon ph-bold ph-house-simple"></i
+                  ><span class="text">Add Staff</span></a
+                >
+              </li> -->
+              <!-- <li>
+                <a href="#"
+                  ><i class="icon ph-bold ph-file-text"></i
+                  ><span class="text">Articles</span></a
+                >
+              </li> -->
+            </ul>
+          </div>
+          <div class="menu">
+            <p class="title">Settings</p>
+            <ul>
+              <li>
+                <a href="#"
+                  ><i class="icon ph-bold ph-gear"></i
+                  ><span class="text">Settings</span></a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-      <div class="nav">
         <div class="menu">
-          <p class="title">Main</p>
+          <p class="title">Account</p>
           <ul>
-            <li class="active">
-              <a href="./maindashboard.html"
-                ><i class="icon ph-bold ph-house-simple"></i
-                ><span class="text">Dashboard</span></a
-              >
-            </li>
-            <li>
-              <a href="./reports.html"
-                ><i class="fa-solid fa-list"></i><span class="text">Reports</span></a
-              >
-            </li>
-              
-                <li>
-                  <a href="./dashboard.html"
-                  ><i class="fa-solid fa-list-check"></i><span class="text">Assign Task</span></a>
-                </li>
-              
-            </li>
             <li>
               <a href="#"
-                ><i class="icon ph-bold ph-file-text"></i
-                ><span class="text">Articles</span></a
+                ><i class="icon ph-bold ph-info"></i
+                ><span class="text">FAQ</span></a
+              >
+            </li>
+            <li>
+              <a href="../html/login.html"
+                ><i class="icon ph-bold ph-sign-out"></i
+                ><span class="text">Logout</span></a
               >
             </li>
           </ul>
         </div>
-        <div class="menu">
-          <p class="title">Settings</p>
-          <ul>
-            <li>
-              <a href="#"
-                ><i class="icon ph-bold ph-gear"></i
-                ><span class="text">Settings</span></a
-              >
-            </li>
-          </ul>
-        </div>
       </div>
-      <div class="menu">
-        <p class="title">Account</p>
-        <ul>
-          <li>
-            <a href="#"
-              ><i class="icon ph-bold ph-info"></i
-              ><span class="text">FAQ</span></a
-            >
-          </li>
-          <li>
-            <a href="../html/login.html"
-              ><i class="icon ph-bold ph-sign-out"></i
-              ><span class="text">Logout</span></a
-            >
-          </li>
-        </ul>
-      </div>
-    </div>
-
 
     <div class="content">
       <h1>Admin Dashboard</h1>
@@ -139,9 +147,9 @@
             <option value="Low">Low</option>
             <option value="Medium">Medium</option>
             <option value="High">High</option>
-          </select> 
-          <button id="assignTaskButton">Assign Task</button>
-            <button id="cancelButton">Cancel</button>
+          </select>
+          <button onclick="assignTask()">Assign Task</button>
+          <button onclick="closePopup()">Cancel</button>
         </div>
       </div>
 

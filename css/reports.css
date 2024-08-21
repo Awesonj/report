@@ -31,7 +31,7 @@ textarea{
 #submit {
     align-self: flex-end;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #783767;
     color: #fff;
     border: none;
     cursor: pointer;
@@ -39,7 +39,7 @@ textarea{
 }
 
 #submit:hover {
-    background-color: #0056b3;
+    background-color: #411034;
 }
 /* CSS for the report table */
 #reportTable {
@@ -76,6 +76,104 @@ label{
     font-weight: bold;
 }
 
+/* Filter input styles */
+#filterDate {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+/* Filter button styles */
+#filterButton {
+  padding: 8px 16px;
+  font-size: 16px;
+  background-color: #783767;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+}
+
+#filterButton:hover {
+  background-color: #c047a0;
+}
+
+/* Filter section styles */
+.filter {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: auto;
+  gap: 10px;
+}
+
+
+/* Select input for progress styles */
+#reportTable select {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+/* Style when the select element is focused */
+#reportTable select:focus {
+  border-color: #783767;
+}
+
+/* Style for the options inside the select */
+#reportTable select option {
+  padding: 8px;
+  font-size: 14px;
+  background-color: #fff;
+  color: #333;
+}
+
+/* Style for the options when hovered */
+#reportTable select option:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Adjustments for the edit and save buttons */
+#reportTable td button {
+  cursor: pointer;
+  padding: 4px 8px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+#reportTable td button:hover {
+  background-color: #0056b3;
+}
+
+#reportTable span[contenteditable="true"] {
+  border: 1px solid #ccc;
+  padding: 4px;
+  display: inline-block;
+  min-width: 150px; /* Adjust width as needed */
+  background-color: #f9f9f9;
+  flex: 1;
+}
+select#staffSelect {
+  width: 180px;
+  padding: 5px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
 
 
 @import url(https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900);

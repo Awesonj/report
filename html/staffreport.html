@@ -47,7 +47,7 @@
                     ></a>
                     <ul class="sub-menu">
                       <li>
-                        <a href="./reports.html"
+                        <a href="./staffreport.html"
                           ><span class="text">Reports</span></a
                         >
                       </li>
@@ -96,29 +96,27 @@
               </ul>
             </div>
           </div>
-          
-        <div class="container">
+
+         <div class="container">
             <h1>Daily Report</h1>
             <div class="filter">
-                <label for="reportDate">Select Date:</label>
+                <label for="filterDate">Select Date:</label>
                 <input type="date" id="filterDate">
                 <button id="filterButton">Filter</button>
-
             </div>
             <table id="reportTable">
-                    
                 <thead>
                     <tr>
-                        <th colspan="8" id="reportDates">Report as at [Date]</th> <!-- Added table heading for report date -->
+                        <th colspan="8" id="reportDates">Report as at [Date]</th>
                     </tr>
                     <tr>
                         <th>SN</th>
                         <th>Task</th>
                         <th>Location</th>
                         <th>Details</th>
-                        <th>Comments&Remarks</th>
+                        <th>Comments & Remarks</th>
                         <th>Priority</th>
-                         <th>Progress</th>
+                        <th>Progress</th>
                         <th>Date and Time</th>
                     </tr>
                 </thead>
@@ -128,6 +126,7 @@
             </table>
         </div>
     </div>
+
           <script
           src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js"
           type="module"

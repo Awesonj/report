@@ -38,7 +38,7 @@
             <p class="title">Main</p>
             <ul>
               <li>
-                <a href="./dashboard.html"
+                <a href="./staffdashboard.html"
                   ><i class="icon ph-bold ph-house-simple"></i
                   ><span class="text">Dashboard</span></a
                 >
@@ -51,7 +51,7 @@
                 ></a>
                 <ul class="sub-menu">
                   <li>
-                    <a href="./reports.html"
+                    <a href="./report.html"
                       ><span class="text">Reports</span></a
                     >
                   </li>
@@ -61,6 +61,10 @@
                     >
                   </li>
                 </ul>
+              </li>
+              <li>
+                <a href="./taskview.html"
+                ><i class="fa-solid fa-list-check"></i><span class="text">View Task</span></a>
               </li>
               <li>
                 <a href="#"
@@ -106,7 +110,8 @@
         <span id="reportDate"></span>
        
         <!-- Display the date here -->
-        <label for="task"
+        <div class="grid">
+          <label for="task"
           >Task:
           <textarea
             id="task"
@@ -123,6 +128,8 @@
             placeholder="Type your Location here..."
             required
           ></textarea>
+        </div>
+        
         </label>
         <label for="details"
           >Details:

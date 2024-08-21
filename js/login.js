@@ -1,12 +1,5 @@
-// Import and configure Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-import {
-  getFirestore,
-  collection,
-  query,
-  where,
-  getDocs,
-} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -24,48 +17,52 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Handle form submission
-  document
-    .getElementById("loginForm")
-    .addEventListener("submit", async (event) => {
-      event.preventDefault(); // Prevent form from submitting the default way
+  document.getElementById("loginForm").addEventListener("submit", async (event) => {
+    event.preventDefault(); // Prevent form from submitting the default way
 
-      const staffId = document.getElementById("staffId").value.trim();
-      const messageElement = document.getElementById("message");
+    const staffId = document.getElementById("staffId").value.trim();
+    const messageElement = document.getElementById("message");
 
-      console.log("Attempting to login with Staff ID:", staffId);
+    if (staffId === "") {
+      messageElement.textContent = "Please enter a Staff ID.";
+      messageElement.style.color = "red";
+      return;
+    }
 
-      if (staffId === "") {
-        messageElement.textContent = "Please enter a Staff ID.";
-        messageElement.style.color = "red";
-        return;
-      }
+    try {
+      const q = query(collection(db, "employees"), where("staffId", "==", staffId));
+      const querySnapshot = await getDocs(q);
 
-      try {
-        // Query the collection for the document with the matching Staff ID
-        const q = query(
-          collection(db, "luthreport"),
-          where("staffId", "==", staffId)
-        );
-        const querySnapshot = await getDocs(q);
+      if (!querySnapshot.empty) {
+        // Document found, retrieve user data
+        const userDoc = querySnapshot.docs[0].data();
+        const accessiblePages = userDoc.accessiblePages || []; // Array of accessible pages
+        const userType = userDoc.userType; // User type
 
-        if (!querySnapshot.empty) {
-          // Staff ID exists, redirect to dashboard.html with the staffId as a parameter
-          console.log("Staff ID exists. Redirecting to dashboard.html");
-          // Handle successful login
-          localStorage.setItem("staffId", staffId);
-          window.location.href = `../html/staffdashboard.html?staffId=${staffId}`;
-          console.log("Staff ID saved to localStorage:", staffId);
-        } else {
-          // Staff ID does not exist, show error message
-          console.log("Staff ID does not exist.");
-          messageElement.textContent = "Staff ID does not exist.";
-          messageElement.style.color = "red";
+        // Save user data to localStorage
+        localStorage.setItem("staffId", staffId);
+        localStorage.setItem("accessiblePages", JSON.stringify(accessiblePages));
+        localStorage.setItem("userType", userType);
+
+        // Redirect based on userType
+        let redirectTo = "home.html"; // Default redirect
+        if (userType === "admin") {
+          redirectTo = "maindashboard.html";
+        } else if (userType === "employee") {
+          // Employees can access both index.html and employeeDashboard.html
+          redirectTo = "staffdashboard.html";
         }
-      } catch (error) {
-        console.error("Error checking staff ID:", error);
-        messageElement.textContent = "An error occurred. Please try again.";
+
+        window.location.href = `../html/${redirectTo}`;
+      } else {
+        // Staff ID does not exist, show error message
+        messageElement.textContent = "Staff ID does not exist.";
         messageElement.style.color = "red";
       }
-    });
+    } catch (error) {
+      console.error("Error checking staff ID:", error);
+      messageElement.textContent = "An error occurred. Please try again.";
+      messageElement.style.color = "red";
+    }
+  });
 });

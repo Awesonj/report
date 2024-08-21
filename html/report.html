@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Staff Reports</title>
     <link rel="stylesheet" href="../css/reports.css" />
     <link
       rel="stylesheet"
@@ -13,10 +13,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
+    <script src="../js/staffreport.js" type="module"></script>
+    
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
   </head>
   <body>
@@ -29,30 +27,43 @@
           </div>
           <div class="user-details">
             <p class="title"></p>
-            <p class="name"></p>
-          </div>
+            <p class="name">
+                <div id="userData"></div> <!-- This will display the user's name -->
+            </p>
+        </div>
         </div>
         <div class="nav">
           <div class="menu">
             <p class="title">Main</p>
             <ul>
               <li class="active">
-                <a href="./maindashboard.html"
+                <a href="./staffdashboard.html"
                   ><i class="icon ph-bold ph-house-simple"></i
                   ><span class="text">Dashboard</span></a
                 >
               </li>
-              <li>
-                <a href="./reports.html"
-                  ><i class="fa-solid fa-list"></i><span class="text">Reports</span></a
-                >
-              </li>
-                
+              <li >
+                <a href="#"
+                  ><i class="icon ph-bold ph-user"></i
+                  ><span class="text">Staff Reports</span
+                  ><i class="arrow ph-bold ph-caret-down"></i
+                ></a>
+                <ul class="sub-menu">
                   <li>
-                    <a href="./dashboard.html"
-                    ><i class="fa-solid fa-list-check"></i><span class="text">Assign Task</span></a>
+                    <a href="./report.html"
+                      ><span class="text">Reports</span></a
+                    >
                   </li>
-                
+                  <li>
+                    <a href="./index.html"
+                      ><span class="text">Add Reports</span></a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="./taskview.html"
+                ><i class="fa-solid fa-list-check"></i><span class="text">View Task</span></a>
               </li>
               <li>
                 <a href="#"
@@ -93,14 +104,15 @@
         </div>
       </div>
 
+
       <div class="container">
         <h1>Daily Report</h1>
-        <div class="filter-container">
+        <!-- <div class="filter-container">
           <label for="staffSelect">Select Staff:</label>
           <select id="staffSelect"></select>
           <label for="filterDate">Select Date:</label>
           <input type="date" id="filterDate" />
-          <!-- <button id="filterButton">Filter Reports</button> -->
+          <button id="filterButton">Filter Reports</button>
         </div>
         <div class="gauge-container">
           <h2>Performance Gauge</h2>
@@ -112,7 +124,10 @@
               <span>100%</span>
             </div>
           </div>
-        </div>
+        </div> -->
+        <input type="date" id="filterDate">
+        
+<button id="filterButton">Filter</button>
         <table id="reportTable">
           <thead>
             <tr>
@@ -126,12 +141,23 @@
               <th>Date and Time</th>
             </tr>
           </thead>
+          
+        <!-- <table>
+        <tbody id="reportTableBody"></tbody>
+        </table> -->
+
           <tbody id="reportTableBody">
             <!-- Table rows will be dynamically added here -->
           </tbody>
         </table>
       </div>
     </div>
+    
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
+      integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
+      crossorigin="anonymous"
+    ></script>
     <script
       src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js"
       type="module"
@@ -140,22 +166,7 @@
       src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js"
       type="module"
     ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
-      integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
-      crossorigin="anonymous"
-    ></script>
-    <script src="../js/pull.js" type="module"></script>
     <!-- <script src="../js/pull.js" type="module"></script> -->
-    <!-- Include Firebase SDK -->
-    <script
-      src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js"
-      type="module"
-    ></script>
-    <script
-      src="https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js"
-      type="module"
-    ></script>
-    <script src="../js/reports.js" type="module"></script>
+    
   </body>
 </html>

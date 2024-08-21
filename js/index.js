@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
           // Query Firestore for user data using staffId
           const q = query(
-            collection(db, "luthreport"),
+            collection(db, "employees"),
             where("staffId", "==", staffId)
           );
           const querySnapshot = await getDocs(q);
@@ -140,11 +140,15 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
   
+
+
+   
+
     // Function to save all table data to Firestore under one document
     async function saveReportData() {
       const rows = reportTableBody.querySelectorAll("tr");
       let reportData = [];
-  
+    
       rows.forEach((row) => {
         const cells = row.querySelectorAll("td");
         if (cells.length === 8) {
@@ -160,25 +164,28 @@ document.addEventListener("DOMContentLoaded", () => {
           });
         }
       });
-  
+    
       const staffId = localStorage.getItem("staffId");
-  
+    
       if (staffId) {
         try {
-          // Ensure collection() and doc() are used correctly
-          const reportRef = doc(collection(db, "reportbt"), staffId);
-  
+          const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+    
+          // Reference to the Firestore document for the specific staff and date
+          const reportRef = doc(collection(db, "reportbt"), staffId, "dailyReports", today);
+    
+          // Use a transaction to handle concurrent updates
           await runTransaction(db, async (transaction) => {
-            // Fetch the current data to ensure atomic update
             const docSnapshot = await transaction.get(reportRef);
-  
-            // Merge new reportData with existing data
-            let newData = { ...docSnapshot.data(), reports: reportData };
-  
+            let existingData = docSnapshot.exists() ? docSnapshot.data() : { reports: {} };
+    
+            // Add or update today's data
+            existingData.reports[today] = reportData;
+    
             // Perform the update
-            transaction.set(reportRef, newData);
+            transaction.set(reportRef, existingData, { merge: true });
           });
-  
+    
           alert("Saved successfully");
         } catch (error) {
           console.error("Error saving report data: ", error);
@@ -187,6 +194,9 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Staff ID not found in localStorage");
       }
     }
+    
+
+  
   
     // Add event listener to the submit button
     submitButton.addEventListener("click", addReportRow);
